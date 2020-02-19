@@ -32,15 +32,18 @@ int main(int argc, char** argv)
     sensor_msgs::ImagePtr msg;
 
     // Open the video source
-    if (nh.getParam("source", source))
+    bool cam_opened = false;
+    if (nh.getParam("source", source) && source != "")
     {
         cap.open(source);
         ROS_INFO_STREAM("cam_pub: publishing using video source " << source << "...");
+        cam_opened = true;
     }
-    else
+
+    if (!cam_opened)
     {
         cap.open(0);
-        ROS_WARN_STREAM("param 'source' not defined, using default camera '0'");
+        ROS_WARN_STREAM("param 'source' not defined, using default camera");
     }
 
     // Check if video device can be opened with the given index
