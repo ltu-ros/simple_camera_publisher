@@ -10,6 +10,22 @@ roslaunch simple_camera_publisher example.launch
 
 ## How to use
 
+### Launch from command line
+
+```
+roslaunch simple_camera_publisher camera_publisher.launch source:=/dev/v4l/by-id/my_camera
+```
+
+### Include in another launch file
+
+```
+<include file="$(find simple_camera_publisher)/launch/camera_publisher.launch>
+    <arg name="source" value="/dev/v4l/by-id/my_camera"
+</include>
+```
+
+### Launching the node by hand
+
 ```xml
 <launch>
     <!-- The name of the camera -->
@@ -17,7 +33,6 @@ roslaunch simple_camera_publisher example.launch
 
         <!-- launch the node -->
         <node name="cam_pub" pkg="simple_camera_publisher" type="cam_pub" respawn="true" respawn_delay="10" output="screen">
-          
             <!-- Use a specific camera path -->
             <!--<param name="source" type="string" value="/dev/v4l/by-id/my_camera_id" /> -->
 
