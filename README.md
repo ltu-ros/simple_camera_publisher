@@ -19,8 +19,8 @@ roslaunch simple_camera_publisher camera_publisher.launch source:=/dev/v4l/by-id
 ### Include in another launch file
 
 ```
-<include file="$(find simple_camera_publisher)/launch/camera_publisher.launch>
-    <arg name="source" value="/dev/v4l/by-id/my_camera"
+<include file="$(find simple_camera_publisher)/launch/camera_publisher.launch" >
+    <arg name="source" value="/dev/v4l/by-id/my_camera" />
 </include>
 ```
 
