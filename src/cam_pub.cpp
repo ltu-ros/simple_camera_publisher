@@ -35,14 +35,14 @@ int main(int argc, char** argv)
     bool cam_opened = false;
     if (nh.getParam("source", source) && source != "")
     {
-        cap.open(source);
+        cap.open(source, cv::CAP_V4L2);
         ROS_INFO_STREAM("cam_pub: publishing using video source " << source << "...");
         cam_opened = true;
     }
 
     if (!cam_opened)
     {
-        cap.open(0);
+        cap.open(0, cv::CAP_V4L2);
         ROS_WARN_STREAM("param 'source' not defined, using default camera");
     }
 
@@ -51,6 +51,9 @@ int main(int argc, char** argv)
     {
         ROS_ERROR_STREAM("video device cannot be opened");
         return 1;
+    }else{
+        int codec = cv::VideoWriter::fourcc('M', 'J', 'P', 'G');
+	cap.set(cv::CAP_PROP_FOURCC, codec);
     }
 
 
